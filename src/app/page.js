@@ -721,12 +721,12 @@ export default function Home() {
             {/* Stats Quick Cards */}
             <div className="stats-grid">
               <div className="stat-card">
-                <span className="stat-label">Model AUC-ROC</span>
-                <span className="stat-value highlight">87.71%</span>
+                <span className="stat-label">Nama Analis / Petugas</span>
+                <span className="stat-value highlight">{userName || "Belum Diatur"}</span>
               </div>
               <div className="stat-card">
-                <span className="stat-label">Model Accuracy</span>
-                <span className="stat-value">84.45%</span>
+                <span className="stat-label">Produk Kredit Terpilih</span>
+                <span className="stat-value" style={{ color: 'var(--cakrawala-blue)' }}>{METODOLOGI_DATA.products[selectedProduct]?.name || "Belum Terpilih"}</span>
               </div>
               <div className="stat-card">
                 <span className="stat-label">Jumlah Debitur Disimpan</span>
