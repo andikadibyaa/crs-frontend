@@ -146,12 +146,26 @@ const METODOLOGI_DATA = {
       thresholds: { conservative: 0.32, expansion: 0.52 },
       model: "Logistic Regression + Digital Footprint Scoring"
     },
+    briguna: {
+      name: "Briguna (Kredit Tanpa Agunan)",
+      type: "consumer",
+      desc: "Kredit tanpa agunan (KTA) untuk pegawai aktif/pensiunan dengan sumber pembayaran payroll.",
+      thresholds: { conservative: 0.30, expansion: 0.50 },
+      model: "Logistic Regression + Payroll Verification Rules"
+    },
     kur: {
       name: "KUR (Kredit Usaha Rakyat)",
       type: "micro",
       desc: "Kredit bersubsidi pemerintah untuk permodalan UMKM produktif.",
       thresholds: { conservative: 0.45, expansion: 0.65 },
       model: "Logistic Regression + Government Subsidy Risk Sharing Rule"
+    },
+    kur_kecil: {
+      name: "KUR Kecil",
+      type: "micro",
+      desc: "Kredit Usaha Rakyat dengan plafond menengah/tertinggi untuk modal kerja dan investasi mikro.",
+      thresholds: { conservative: 0.40, expansion: 0.60 },
+      model: "Logistic Regression + Micro Scale Feasibility Rules"
     },
     kupedes: {
       name: "Kupedes (Kredit Umum Pedesaan)",
@@ -558,11 +572,13 @@ export default function Home() {
                         <option value="kkb">KKB (Kredit Kendaraan Bermotor)</option>
                         <option value="kartu_kredit">Kartu Kredit</option>
                         <option value="ceria">Ceria (Digital Paylater)</option>
+                        <option value="briguna">Briguna (Kredit Tanpa Agunan)</option>
                       </>
                     )}
                     {selectedCreditType === 'micro' && (
                       <>
                         <option value="kur">KUR (Kredit Usaha Rakyat)</option>
+                        <option value="kur_kecil">KUR Kecil (Plafond Tertinggi)</option>
                         <option value="kupedes">Kupedes (Kredit Umum Pedesaan)</option>
                       </>
                     )}
@@ -1112,7 +1128,7 @@ export default function Home() {
                   <div className="flowchart-step-row">
                     <span className="flowchart-step-label">Langkah 3: Tentukan Produk Kredit</span>
                     <div className="flowchart-nodes">
-                      {selectedCreditType === "consumer" && (
+                       {selectedCreditType === "consumer" && (
                         <>
                           <div 
                             className={`flowchart-node ${selectedProduct === "kpr" ? "active" : ""}`}
@@ -1142,6 +1158,13 @@ export default function Home() {
                             <span>Ceria</span>
                             <span className="flowchart-node-subtitle">Paylater Digital</span>
                           </div>
+                          <div 
+                            className={`flowchart-node ${selectedProduct === "briguna" ? "active" : ""}`}
+                            onClick={() => setSelectedProduct("briguna")}
+                          >
+                            <span>Briguna</span>
+                            <span className="flowchart-node-subtitle">KTA Payroll</span>
+                          </div>
                         </>
                       )}
 
@@ -1153,6 +1176,13 @@ export default function Home() {
                           >
                             <span>KUR Mikro</span>
                             <span className="flowchart-node-subtitle">Usaha Rakyat</span>
+                          </div>
+                          <div 
+                            className={`flowchart-node ${selectedProduct === "kur_kecil" ? "active" : ""}`}
+                            onClick={() => setSelectedProduct("kur_kecil")}
+                          >
+                            <span>KUR Kecil</span>
+                            <span className="flowchart-node-subtitle">Plafond Tertinggi</span>
                           </div>
                           <div 
                             className={`flowchart-node ${selectedProduct === "kupedes" ? "active" : ""}`}
@@ -1216,12 +1246,7 @@ export default function Home() {
                       {METODOLOGI_DATA.products[selectedProduct]?.name}
                     </span>
                   </div>
-                  <div className="preview-item">
-                    <span className="preview-label">Model Engine</span>
-                    <span className="preview-value">
-                      {METODOLOGI_DATA.products[selectedProduct]?.model}
-                    </span>
-                  </div>
+
                   <div className="preview-item" style={{ flexDirection: 'column', gap: '0.5rem', alignItems: 'stretch' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <span className="preview-label">Risk Cut-off Threshold</span>
