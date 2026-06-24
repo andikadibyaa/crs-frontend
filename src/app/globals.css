@@ -1185,6 +1185,8 @@ tr:hover td {
   background-repeat: no-repeat;
   opacity: 0;
   transition: opacity 1.8s ease-in-out;
+  filter: blur(10px) brightness(0.85); /* Blur and slightly darken for better contrast */
+  transform: scale(1.05); /* Scales up slightly to hide blurred screen edges */
 }
 
 .doc-bg-slide.active {
@@ -1197,8 +1199,8 @@ tr:hover td {
   left: 0;
   width: 100%;
   height: 100%;
-  /* High visibility background overlay but lets content render in front */
-  background: linear-gradient(135deg, rgba(243, 247, 250, 0.42) 0%, rgba(243, 247, 250, 0.52) 100%);
+  /* Increased opacity to dim the background and make white cards stand out beautifully */
+  background: linear-gradient(135deg, rgba(243, 247, 250, 0.78) 0%, rgba(226, 232, 240, 0.88) 100%);
   z-index: 2;
 }
 
