@@ -462,7 +462,21 @@ export default function Home() {
   const strokeDashoffset = circumference - (riskProb * circumference);
 
   return (
-    <div className="main-wrapper">
+    <div className={`main-wrapper ${currentTab === "documentation" ? "has-doc-bg" : ""}`}>
+      {/* Global Background Slideshow for Documentation */}
+      {currentTab === "documentation" && (
+        <div className="doc-global-slideshow">
+          {slides.map((slide, idx) => (
+            <div
+              key={idx}
+              className={`doc-bg-slide ${idx === currentSlide ? "active" : ""}`}
+              style={{ backgroundImage: `url('${encodeURI(slide)}')` }}
+            />
+          ))}
+          <div className="doc-bg-overlay"></div>
+        </div>
+      )}
+
       {/* Navbar Header */}
       <nav className="navbar">
         <div className="navbar-container">
@@ -1087,28 +1101,15 @@ export default function Home() {
             TAB 4: DOCUMENTATION (DOKUMENTASI)
             ========================================== */}
         {currentTab === "documentation" && (
-          <div className="doc-wrapper">
-            {/* Background Slideshow */}
-            <div className="doc-bg-slideshow">
-              {slides.map((slide, idx) => (
-                <div
-                  key={idx}
-                  className={`doc-bg-slide ${idx === currentSlide ? "active" : ""}`}
-                  style={{ backgroundImage: `url('${encodeURI(slide)}')` }}
-                />
-              ))}
-              <div className="doc-bg-overlay"></div>
-            </div>
-
-            <div className="doc-content-wrapper">
-              <div className="header" style={{ marginBottom: '1.5rem', borderBottom: '1px solid rgba(226, 232, 240, 0.4)' }}>
-                <div>
-                  <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>Dokumentasi Metodologi Model</h1>
-                  <p style={{ fontSize: '0.9rem', color: '#64748B', marginTop: '0.25rem' }}>
-                    Simulasikan bagaimana kombinasi strategi bisnis bank dan produk kredit menentukan konfigurasi model prediktif dan threshold keputusan.
-                  </p>
-                </div>
+          <div>
+            <div className="header" style={{ marginBottom: '1.5rem', borderBottom: '1px solid rgba(226, 232, 240, 0.4)' }}>
+              <div>
+                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>Dokumentasi Metodologi Model</h1>
+                <p style={{ fontSize: '0.9rem', color: '#64748B', marginTop: '0.25rem' }}>
+                  Simulasikan bagaimana kombinasi strategi bisnis bank dan produk kredit menentukan konfigurasi model prediktif dan threshold keputusan.
+                </p>
               </div>
+            </div>
 
             <div className="doc-grid">
               {/* Flowchart Panel */}
@@ -1361,7 +1362,6 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-            </div>
             </div>
           </div>
         )}

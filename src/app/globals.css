@@ -1158,27 +1158,16 @@ tr:hover td {
   line-height: 1.5;
 }
 
-/* Documentation Background Slideshow */
-.doc-wrapper {
-  position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
-  padding: 2.5rem;
-  border: 1px solid var(--border-color);
-  background-color: transparent;
-  box-shadow: var(--shadow-lg);
-  min-height: 80vh;
-  transition: var(--transition);
-}
-
-.doc-bg-slideshow {
-  position: absolute;
+/* Global Background Slideshow for Documentation */
+.doc-global-slideshow {
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .doc-bg-slide {
@@ -1191,7 +1180,7 @@ tr:hover td {
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: opacity 1.5s ease-in-out;
+  transition: opacity 1.8s ease-in-out;
 }
 
 .doc-bg-slide.active {
@@ -1204,14 +1193,57 @@ tr:hover td {
   left: 0;
   width: 100%;
   height: 100%;
-  /* 93% white background makes it highly transparent but still fully legible and premium */
-  background: linear-gradient(rgba(243, 247, 250, 0.93), rgba(243, 247, 250, 0.93));
+  /* Lower opacity (0.72) to make the building photos much more visible and grand */
+  background: linear-gradient(135deg, rgba(243, 247, 250, 0.72) 0%, rgba(243, 247, 250, 0.82) 100%);
   z-index: 2;
 }
 
-.doc-content-wrapper {
+/* Glassmorphism details when documentation tab background is active */
+.has-doc-bg {
   position: relative;
-  z-index: 3;
+  z-index: 1;
+}
+
+.has-doc-bg .navbar {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.has-doc-bg .flowchart-card {
+  background: rgba(255, 255, 255, 0.78) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 10px 30px rgba(8, 87, 195, 0.08);
+}
+
+.has-doc-bg .preview-card {
+  /* Semi-transparent dark slate theme */
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(30, 41, 59, 0.88) 100%) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.has-doc-bg .model-explanation-card {
+  background: rgba(255, 255, 255, 0.6) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.has-doc-bg .flowchart-node {
+  background: rgba(248, 250, 252, 0.85);
+  border-color: rgba(226, 232, 240, 0.8);
+}
+
+.has-doc-bg .flowchart-node.active {
+  background: linear-gradient(135deg, rgba(8, 87, 195, 0.12) 0%, rgba(48, 127, 226, 0.12) 100%) !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: var(--nusantara-blue) !important;
 }
 
 
