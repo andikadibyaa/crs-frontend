@@ -1158,4 +1158,60 @@ tr:hover td {
   line-height: 1.5;
 }
 
+/* Documentation Background Slideshow */
+.doc-wrapper {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  padding: 2.5rem;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  box-shadow: var(--shadow-lg);
+  min-height: 80vh;
+  transition: var(--transition);
+}
+
+.doc-bg-slideshow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.doc-bg-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.doc-bg-slide.active {
+  opacity: 1;
+}
+
+.doc-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 93% white background makes it highly transparent but still fully legible and premium */
+  background: linear-gradient(rgba(243, 247, 250, 0.93), rgba(243, 247, 250, 0.93));
+  z-index: 2;
+}
+
+.doc-content-wrapper {
+  position: relative;
+  z-index: 3;
+}
+
 

@@ -219,6 +219,25 @@ export default function Home() {
   const [apiStatus, setApiStatus] = useState("checking"); // 'online', 'offline', 'checking'
   const [isPending, setIsPending] = useState(false);
 
+  // Slideshow state for documentation background
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = [
+    "/DJI_0269-.jpg",
+    "/GEDUNG MENARA BRILIAN.jpg",
+    "/Gedung BRI 2022 IMG_9988.jpg",
+    "/GEDUNG DARI MAP 1.jpg"
+  ];
+
+  // Rotate slides every 4 seconds in documentation tab
+  useEffect(() => {
+    if (currentTab === "documentation") {
+      const interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+      }, 4000);
+      return () => clearInterval(interval);
+    }
+  }, [currentTab, slides.length]);
+
   // Sample data (Mock Database) for "tidak sepi" UI
   const mockClients = [
     { nama: "Wahyu Setiawan", pekerjaan: "Karyawan Swasta", pendapatan: 6193292, cicilan: 2577223, rasio: 0.416, tunggakan: 4, skor: 593, usia: 26, is_default: 0 },
@@ -1068,15 +1087,28 @@ export default function Home() {
             TAB 4: DOCUMENTATION (DOKUMENTASI)
             ========================================== */}
         {currentTab === "documentation" && (
-          <div>
-            <div className="header" style={{ marginBottom: '1.5rem' }}>
-              <div>
-                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>Dokumentasi Metodologi Model</h1>
-                <p style={{ fontSize: '0.9rem', color: '#64748B', marginTop: '0.25rem' }}>
-                  Simulasikan bagaimana kombinasi strategi bisnis bank dan produk kredit menentukan konfigurasi model prediktif dan threshold keputusan.
-                </p>
-              </div>
+          <div className="doc-wrapper">
+            {/* Background Slideshow */}
+            <div className="doc-bg-slideshow">
+              {slides.map((slide, idx) => (
+                <div
+                  key={idx}
+                  className={`doc-bg-slide ${idx === currentSlide ? "active" : ""}`}
+                  style={{ backgroundImage: `url('${encodeURI(slide)}')` }}
+                />
+              ))}
+              <div className="doc-bg-overlay"></div>
             </div>
+
+            <div className="doc-content-wrapper">
+              <div className="header" style={{ marginBottom: '1.5rem', borderBottom: '1px solid rgba(226, 232, 240, 0.4)' }}>
+                <div>
+                  <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>Dokumentasi Metodologi Model</h1>
+                  <p style={{ fontSize: '0.9rem', color: '#64748B', marginTop: '0.25rem' }}>
+                    Simulasikan bagaimana kombinasi strategi bisnis bank dan produk kredit menentukan konfigurasi model prediktif dan threshold keputusan.
+                  </p>
+                </div>
+              </div>
 
             <div className="doc-grid">
               {/* Flowchart Panel */}
@@ -1329,6 +1361,7 @@ export default function Home() {
                   </p>
                 </div>
               </div>
+            </div>
             </div>
           </div>
         )}
