@@ -1102,13 +1102,11 @@ export default function Home() {
             ========================================== */}
         {currentTab === "documentation" && (
           <div>
-            <div className="header" style={{ marginBottom: '1.5rem', borderBottom: '1px solid rgba(226, 232, 240, 0.4)' }}>
-              <div>
-                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>Dokumentasi Metodologi Model</h1>
-                <p style={{ fontSize: '0.9rem', color: '#64748B', marginTop: '0.25rem' }}>
-                  Simulasikan bagaimana kombinasi strategi bisnis bank dan produk kredit menentukan konfigurasi model prediktif dan threshold keputusan.
-                </p>
-              </div>
+            <div className="doc-header-card" style={{ marginBottom: '2rem' }}>
+              <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F172A' }}>Dokumentasi Metodologi Model</h1>
+              <p style={{ fontSize: '0.9rem', color: '#64748B', marginTop: '0.25rem' }}>
+                Simulasikan bagaimana kombinasi strategi bisnis bank dan produk kredit menentukan konfigurasi model prediktif dan threshold keputusan.
+              </p>
             </div>
 
             <div className="doc-grid">
