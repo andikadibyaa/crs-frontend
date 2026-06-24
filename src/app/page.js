@@ -207,6 +207,7 @@ export default function Home() {
   const [nama, setNama] = useState("Wahyu Setiawan");
   const [usia, setUsia] = useState(26);
   const [pekerjaan, setPekerjaan] = useState("Karyawan Swasta");
+  const [kota, setKota] = useState("Jakarta");
   const [pendapatan, setPendapatan] = useState(6193292);
   const [cicilan, setCicilan] = useState(2577223);
   const [tunggakan, setTunggakan] = useState(4);
@@ -220,12 +221,12 @@ export default function Home() {
 
   // Sample data (Mock Database) for "tidak sepi" UI
   const mockClients = [
-    { nama: "Wahyu Setiawan", pekerjaan: "Karyawan Swasta", pendapatan: 6193292, cicilan: 2577223, rasio: 0.416, tunggakan: 4, skor: 593, usia: 26, is_default: 0 },
-    { nama: "Joko Tanjung", pekerjaan: "Pengusaha", pendapatan: 20491471, cicilan: 1208811, rasio: 0.059, tunggakan: 0, skor: 727, usia: 31, is_default: 0 },
-    { nama: "Nanda Santoso", pekerjaan: "PNS", pendapatan: 4805010, cicilan: 964941, rasio: 0.201, tunggakan: 3, skor: 652, usia: 47, is_default: 0 },
-    { nama: "Lina Suharto", pekerjaan: "Wiraswasta", pendapatan: 3631928, cicilan: 837947, rasio: 0.231, tunggakan: 1, skor: 817, usia: 44, is_default: 1 },
-    { nama: "Muhamad Purnama", pekerjaan: "Pengusaha", pendapatan: 18238483, cicilan: 3584894, rasio: 0.197, tunggakan: 0, skor: 742, usia: 40, is_default: 0 },
-    { nama: "Irfan Lestari", pekerjaan: "Tidak Bekerja", pendapatan: 1500000, cicilan: 1664100, rasio: 1.109, tunggakan: 0, skor: 690, usia: 50, is_default: 1 }
+    { nama: "Wahyu Setiawan", pekerjaan: "Karyawan Swasta", pendapatan: 6193292, cicilan: 2577223, rasio: 0.416, tunggakan: 4, skor: 593, usia: 26, kota: "Jakarta", is_default: 0 },
+    { nama: "Joko Tanjung", pekerjaan: "Pengusaha", pendapatan: 20491471, cicilan: 1208811, rasio: 0.059, tunggakan: 0, skor: 727, usia: 31, kota: "Surabaya", is_default: 0 },
+    { nama: "Nanda Santoso", pekerjaan: "PNS", pendapatan: 4805010, cicilan: 964941, rasio: 0.201, tunggakan: 3, skor: 652, usia: 47, kota: "Bandung", is_default: 0 },
+    { nama: "Lina Suharto", pekerjaan: "Wiraswasta", pendapatan: 3631928, cicilan: 837947, rasio: 0.231, tunggakan: 1, skor: 817, usia: 44, kota: "Semarang", is_default: 1 },
+    { nama: "Muhamad Purnama", pekerjaan: "Pengusaha", pendapatan: 18238483, cicilan: 3584894, rasio: 0.197, tunggakan: 0, skor: 742, usia: 40, kota: "Medan", is_default: 0 },
+    { nama: "Irfan Lestari", pekerjaan: "Tidak Bekerja", pendapatan: 1500000, cicilan: 1664100, rasio: 1.109, tunggakan: 0, skor: 690, usia: 50, kota: "Palembang", is_default: 1 }
   ];
 
   // Dynamic Clients state with localStorage support
@@ -344,6 +345,7 @@ export default function Home() {
     const newClient = {
       nama: nama || "Tanpa Nama",
       pekerjaan,
+      kota,
       pendapatan,
       cicilan,
       rasio,
@@ -377,6 +379,7 @@ export default function Home() {
     setNama(client.nama);
     setUsia(client.usia);
     setPekerjaan(client.pekerjaan);
+    setKota(client.kota || "Jakarta");
     setPendapatan(client.pendapatan);
     setCicilan(client.cicilan);
     setTunggakan(client.tunggakan);
@@ -731,6 +734,32 @@ export default function Home() {
                   </div>
 
                   <div className="form-group">
+                    <label className="form-label" htmlFor="kota">Kota</label>
+                    <select
+                      id="kota"
+                      className="form-input"
+                      value={kota}
+                      onChange={(e) => setKota(e.target.value)}
+                    >
+                      <option value="Bandung">Bandung</option>
+                      <option value="Batam">Batam</option>
+                      <option value="Bekasi">Bekasi</option>
+                      <option value="Bogor">Bogor</option>
+                      <option value="Denpasar">Denpasar</option>
+                      <option value="Depok">Depok</option>
+                      <option value="Jakarta">Jakarta</option>
+                      <option value="Makassar">Makassar</option>
+                      <option value="Malang">Malang</option>
+                      <option value="Medan">Medan</option>
+                      <option value="Palembang">Palembang</option>
+                      <option value="Semarang">Semarang</option>
+                      <option value="Surabaya">Surabaya</option>
+                      <option value="Tangerang">Tangerang</option>
+                      <option value="Yogyakarta">Yogyakarta</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
                     <label className="form-label" htmlFor="usia">Usia (Tahun)</label>
                     <input
                       id="usia"
@@ -896,6 +925,7 @@ export default function Home() {
                   <thead>
                     <tr>
                       <th>Nama Debitur</th>
+                      <th>Kota</th>
                       <th>Usia</th>
                       <th>Jenis Pekerjaan</th>
                       <th>Pendapatan</th>
@@ -909,7 +939,7 @@ export default function Home() {
                   <tbody>
                     {clients.length === 0 ? (
                       <tr>
-                        <td colSpan="9" style={{textAlign: 'center', color: '#94A3B8', padding: '2rem'}}>
+                        <td colSpan="10" style={{textAlign: 'center', color: '#94A3B8', padding: '2rem'}}>
                           Belum ada debitur yang disimpan. Masukkan data di atas lalu klik &quot;Simpan Hasil ke Database&quot;.
                         </td>
                       </tr>
@@ -922,6 +952,7 @@ export default function Home() {
                           >
                             {client.nama}
                           </td>
+                          <td onClick={() => loadClient(client)}>{client.kota || "Jakarta"}</td>
                           <td onClick={() => loadClient(client)}>{client.usia} Th</td>
                           <td onClick={() => loadClient(client)}>{client.pekerjaan}</td>
                           <td onClick={() => loadClient(client)}>{formatRupiah(client.pendapatan)}</td>
