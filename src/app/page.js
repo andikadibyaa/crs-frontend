@@ -177,6 +177,8 @@ const METODOLOGI_DATA = {
   }
 };
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
 export default function Home() {
   // Navigation State
   const [currentTab, setCurrentTab] = useState("home"); // 'home', 'calculator', 'about', 'documentation'
@@ -235,7 +237,7 @@ export default function Home() {
   useEffect(() => {
     const pingBackend = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/");
+        const res = await fetch(`${API_BASE_URL}/`);
         if (res.ok) {
           setApiStatus("online");
         } else {
@@ -264,7 +266,7 @@ export default function Home() {
     const fetchPrediction = async () => {
       setIsPending(true);
       try {
-        const response = await fetch("http://127.0.0.1:8000/predict", {
+        const response = await fetch(`${API_BASE_URL}/predict`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -479,34 +481,6 @@ export default function Home() {
                     </svg>
                   </button>
                   <button className="btn btn-secondary" onClick={() => setCurrentTab("about")}>Pelajari Metodologi</button>
-                </div>
-              </div>
-
-              {/* Graphical Card Mockup */}
-              <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', background: 'linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%)' }}>
-                <h3 style={{ fontSize: '1.1rem', color: 'var(--nusantara-blue)', fontWeight: 700 }}>Ringkasan Model CRS</h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.5rem', borderBottom: '1px solid #E2E8F0' }}>
-                    <span style={{ fontSize: '0.875rem', color: '#64748B' }}>Model Inti:</span>
-                    <span style={{ fontSize: '0.875rem', fontWeight: 600 }}>Logistic Regression</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.5rem', borderBottom: '1px solid #E2E8F0' }}>
-                    <span style={{ fontSize: '0.875rem', color: '#64748B' }}>Akurasi Validasi:</span>
-                    <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#10B981' }}>84.45%</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.5rem', borderBottom: '1px solid #E2E8F0' }}>
-                    <span style={{ fontSize: '0.875rem', color: '#64748B' }}>AUC-ROC Score:</span>
-                    <span style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--cakrawala-blue)' }}>87.71%</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: '0.875rem', color: '#64748B' }}>Fitur Utama:</span>
-                    <span style={{ fontSize: '0.875rem', fontWeight: 600 }}>DTI, Tunggakan, Usia, Skor Kredit</span>
-                  </div>
-                </div>
-                <div style={{ background: 'rgba(8, 87, 195, 0.05)', padding: '1rem', borderRadius: '8px', border: '1px solid rgba(8, 87, 195, 0.1)', textAlign: 'center' }}>
-                  <span style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5, display: 'block' }}>
-                    💡 <strong>Tips:</strong> Klik &quot;Mulai Kalkulator&quot; lalu pilih debitur di tabel simulasi untuk langsung memuat profil risikonya.
-                  </span>
                 </div>
               </div>
             </section>
