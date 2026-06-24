@@ -1185,8 +1185,8 @@ tr:hover td {
   background-repeat: no-repeat;
   opacity: 0;
   transition: opacity 1.8s ease-in-out;
-  filter: blur(10px) brightness(0.85); /* Blur and slightly darken for better contrast */
-  transform: scale(1.05); /* Scales up slightly to hide blurred screen edges */
+  filter: blur(4px) brightness(0.85); /* Reduced blur to keep some details visible */
+  transform: scale(1.02); /* Scales up slightly to hide blurred screen edges */
 }
 
 .doc-bg-slide.active {
